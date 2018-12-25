@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: busybox
+spec:
+  template:
+    spec:
+      containers:
+      - name: busybox
+        image: busybox:latest
+        command: ["/bin/sh", "-c"]
+        args:
+          - >
+              echo "Pffft, English. Who needs that. I'm never going to England";
+              echo "If something's hard to do, then it's not worth doing!";
+              sleep 20;
+              logger -s "If something goes wrong at the plant, blame the guy who can't speak English.";
+      restartPolicy: Never
+  backoffLimit: 4
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi
+spec:
+  template:
+    spec:
+      containers:
+      - name: pi
+        image: perl
+        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: Never
+  backoffLimit: 4

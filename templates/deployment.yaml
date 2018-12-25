@@ -1,0 +1,26 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: alpine
+spec:
+  selector:
+    matchLabels:
+      running: "afterLabels"
+      tier: "linuxAcademyCloud"
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        running: "afterLabels"
+        tier: "linuxAcademyCloud"
+    spec:
+      containers:
+        - name: alpine
+          image: alpine
+          command: ["/bin/sh", "-c"]
+          args:
+            - >
+                echo "Pffft, English. Who needs that. I'm never going to England";
+                echo "If something's hard to do, then it's not worth doing!";
+                sleep 60;
+                exit 0;
