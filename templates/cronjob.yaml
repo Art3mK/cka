@@ -1,0 +1,23 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cronjob-example
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      completions: 10
+      parallelism: 5
+      template:
+        spec:
+          containers:
+          - name: busybox
+            image: busybox:latest
+            command: ["/bin/sh", "-c"]
+            args:
+              - >
+                  echo "Pffft, English. Who needs that. I'm never going to England";
+                  echo "If something's hard to do, then it's not worth doing!";
+                  sleep 20;
+                  logger -s "If something goes wrong at the plant, blame the guy who can't speak English.";
+          restartPolicy: Never
